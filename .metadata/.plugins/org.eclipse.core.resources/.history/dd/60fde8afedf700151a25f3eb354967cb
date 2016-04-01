@@ -108,7 +108,7 @@ package
 			tempInfo.win = parseInt(temp[3]);
 			tempInfo.lose = parseInt(temp[4]);
 			
-			tempInfo.group = setGroupNum(tempInfo.score);
+			tempInfo.group = SetGroupNum(tempInfo.score);
 			
 			return tempInfo;
 		}

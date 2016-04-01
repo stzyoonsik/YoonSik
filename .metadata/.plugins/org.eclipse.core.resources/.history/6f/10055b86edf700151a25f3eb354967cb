@@ -35,7 +35,7 @@ package
 		 * @return 데이터를 파싱하고 Vector에 저장하여 리턴
 		 * 지정된 텍스트 파일을 읽어 파싱 후 Vector형태로 저장하는 메소드
 		 */
-		public function loadData(fileName:String):Vector.<PlayerInfo>
+		public function LoadData(fileName:String):Vector.<PlayerInfo>
 		{
 			var info:Vector.<PlayerInfo>;
 			info = new Vector.<PlayerInfo>;			
@@ -66,7 +66,7 @@ package
 					continue;
 				}
 				
-				var tempInfo:PlayerInfo = savetoClass(line);
+				var tempInfo:PlayerInfo = SavetoClass(line);
 				info.push(tempInfo);	
 			}
 			
@@ -82,7 +82,7 @@ package
 		 * @return 받아온 String을 파싱하여 PlayerInfo클래스의 멤버변수에 저장
 		 * String을 받아와 파싱 후 PlayerInfo 클래스 멤버 변수에 저장하고 리턴하는 메소드
 		 */
-		private function savetoClass(line:String):PlayerInfo
+		private function SavetoClass(line:String):PlayerInfo
 		{
 			var tempInfo:PlayerInfo = new PlayerInfo();
 			
@@ -108,7 +108,7 @@ package
 			tempInfo.win = parseInt(temp[3]);
 			tempInfo.lose = parseInt(temp[4]);
 			
-			tempInfo.group = setGroupNum(tempInfo.score);
+			tempInfo.group = SetGroupNum(tempInfo.score);
 			
 			return tempInfo;
 		}
@@ -120,7 +120,7 @@ package
 		 * @return 리턴되는 Dictionary는 <int, Vector.<PlayerInfo> 형태 
 		 * Vector.<PlayerInfo>를 받아와 해당 그룹에 Dictionary 형태로 저장하고  리턴하는 메소드
 		 */
-		public function saveToDictionary(info:Vector.<PlayerInfo>):Dictionary
+		public function SaveToDictionary(info:Vector.<PlayerInfo>):Dictionary
 		{
 			var tempDic:Dictionary = new Dictionary();
 			
@@ -151,7 +151,7 @@ package
 		 * score 0이하     -> 0리턴
 		 * 나머지                   -> 계산값 리턴
 		 */
-		public function setGroupNum(num:int):int
+		public function SetGroupNum(num:int):int
 		{
 			//Score를 10만으로 나눈 값을 그룹 번호로 함
 			if(num > 1000000)

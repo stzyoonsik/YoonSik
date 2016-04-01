@@ -108,7 +108,7 @@ package
 			tempInfo.win = parseInt(temp[3]);
 			tempInfo.lose = parseInt(temp[4]);
 			
-			tempInfo.group = setGroupNum(tempInfo.score);
+			tempInfo.group = SetGroupNum(tempInfo.score);
 			
 			return tempInfo;
 		}
@@ -120,7 +120,7 @@ package
 		 * @return 리턴되는 Dictionary는 <int, Vector.<PlayerInfo> 형태 
 		 * Vector.<PlayerInfo>를 받아와 해당 그룹에 Dictionary 형태로 저장하고  리턴하는 메소드
 		 */
-		public function saveToDictionary(info:Vector.<PlayerInfo>):Dictionary
+		public function SaveToDictionary(info:Vector.<PlayerInfo>):Dictionary
 		{
 			var tempDic:Dictionary = new Dictionary();
 			
@@ -151,7 +151,7 @@ package
 		 * score 0이하     -> 0리턴
 		 * 나머지                   -> 계산값 리턴
 		 */
-		public function setGroupNum(num:int):int
+		public function SetGroupNum(num:int):int
 		{
 			//Score를 10만으로 나눈 값을 그룹 번호로 함
 			if(num > 1000000)

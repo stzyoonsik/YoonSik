@@ -85,7 +85,7 @@ package
 			addChild(_outputBox); 
 			
 			OutputMgr.instance.printScoreAndGroup();
-			OutputMgr.instance.seekGroup(_dic);
+			OutputMgr.instance.SeekGroup(_dic);
 			_outputBox.text = OutputMgr.instance.textField.text;
 		} 
 	}

@@ -108,7 +108,7 @@ package
 			tempInfo.win = parseInt(temp[3]);
 			tempInfo.lose = parseInt(temp[4]);
 			
-			tempInfo.group = setGroupNum(tempInfo.score);
+			tempInfo.group = SetGroupNum(tempInfo.score);
 			
 			return tempInfo;
 		}
@@ -151,7 +151,7 @@ package
 		 * score 0이하     -> 0리턴
 		 * 나머지                   -> 계산값 리턴
 		 */
-		public function setGroupNum(num:int):int
+		public function SetGroupNum(num:int):int
 		{
 			//Score를 10만으로 나눈 값을 그룹 번호로 함
 			if(num > 1000000)

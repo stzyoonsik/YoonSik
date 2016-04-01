@@ -92,7 +92,7 @@ package
 		public function seekGroup(dic:Dictionary):void
 		{		
 			
-			var arrGroup:Array = dicideGroupOrder(InputMgr.instance.setGroupNum(inputScore));	
+			var arrGroup:Array = DicideGroupOrder(InputMgr.instance.setGroupNum(inputScore));	
 			
 			//trace("그룹 탐색 순서 = " + arrGroup);	
 		
