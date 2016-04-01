@@ -29,7 +29,7 @@ package
 			
 			//사용자로부터 입력한 값을 토대로 탐색하고 정렬하며 출력			
 			var capture:CaptureUserInput = new CaptureUserInput();			
-			capture.dic = dicInfo;
+			capture.Dic = dicInfo;
 			addChild(capture);
 			
 	

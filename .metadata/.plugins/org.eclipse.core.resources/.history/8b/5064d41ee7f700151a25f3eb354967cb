@@ -24,14 +24,14 @@ package
 		
 		public function CaptureUserInput() 
 		{ 
-			CaptureText(); 
+			captureText(); 
 		} 
 		
 		/**
-		 * 사용자로부터 스코어 값을 받는 텍스트필드를 세팅하는 메소드
+		 * 
 		 * 
 		 */
-		public function CaptureText():void 
+		public function captureText():void 
 		{ 
 			_textBox.type = TextFieldType.INPUT; 
 			_textBox.border = true;
@@ -39,16 +39,11 @@ package
 			_textBox.height = 20;
 			addChild(_textBox); 
 			_textBox.text = _text; 
-			_textBox.addEventListener(KeyboardEvent.KEY_DOWN, TextInputCapture); 
+			_textBox.addEventListener(KeyboardEvent.KEY_DOWN, textInputCapture); 
 		} 
 		
-		
-		/**
-		 * 
-		 * @param event 키보드 입력이 들어오는 순간 발생
-		 * 
-		 */
-		public function TextInputCapture(event:KeyboardEvent):void 
+		//키보드 입력이 들어오는 순간 발생
+		public function textInputCapture(event:KeyboardEvent):void 
 		{ 			
 			//입력 텍스트 필드가 비어있지 않으며, 엔터를 입력받는 경우 (숫자가 포함되어있지 않으면 에러)
 			if(event.charCode == Keyboard.ENTER && _textBox.text != "")				
@@ -66,17 +61,13 @@ package
 					
 					//사용자로부터 입력받은 String을 int로 형변환 	
 					OutputMgr.instance.inputScore = int(str);
-					CreateOutputBox();
+					createOutputBox(str);
 				}
 				
 			}
 		} 
 		
-		/**
-		 * 
-		 * OutputMgr을 통해 받아온 String 텍스트를 화면에 출력하는 메소드
-		 */
-		public function CreateOutputBox():void 
+		public function createOutputBox(str:String):void 
 		{ 			
 			_outputBox.border = true;
 			_outputBox.background = true; 

@@ -31,18 +31,12 @@ package
 		public var inputScore:int;
 		public var MAX_FINDABLE_PLAYER:int;
 		
-		
+		//public var _playerInfo:Vector.<PlayerInfo>;
 		
 	
 		
 		
 		
-		/**
-		 * 
-		 * @param groupNum = 입력받은 그룹 번호를 출력
-		 * @param info = 입력받은 Vector안에 있는 클래스 데이터를 출력
-		 * 최종적으로 출력하는 메소드
-		 */
 		private function PrintResult(groupNum:int, info:Vector.<PlayerInfo>):void
 		{
 			if(info.length != 0)
@@ -69,10 +63,6 @@ package
 			}	
 		}
 		
-		/**
-		 * 사용자로부터 입력받은 스코어를 출력
-		 * 그 스코어를 토대로 한 그룹번호를 출력 하는 메소드
-		 */
 		public function PrintScoreAndGroup():void
 		{
 			trace("Input Your Score : " + inputScore);
@@ -83,12 +73,7 @@ package
 		}
 		
 		
-		
-		/**
-		 * 
-		 * @param dic = Dictionary형태로 저장된 데이터를 가져옴
-		 * 정해진 탐색순서에 따라 최대 n명의 플레이어를 검색하고 출력하는 메소드
-		 */
+		//정해진 탐색순서에 따라 최대 n명의 플레이어를 검색하고 출력하는 메소드
 		public function SeekGroup(dic:Dictionary):void
 		{		
 			
@@ -125,16 +110,7 @@ package
 			
 		}
 		
-		
-		/**
-		 * 
-		 * @param infoA 
-		 * @param infoB
-		 * @return 
-		 * 저장 된 스코어와 사용자로부터 입력받은 스코어의 차이의 절대값을 비교함
-		 * 사용자 정의 정렬 메소드 (오름차순)
-		 * 
-		 */
+		//사용자 정의 정렬 메소드 (오름차순)
 		private function OrderByGap(infoA:PlayerInfo, infoB:PlayerInfo):int
 		{			
 			var tempA:int = Math.abs(infoA.score - inputScore);
@@ -151,13 +127,7 @@ package
 		}		
 
 		
-		
-		/**
-		 * 
-		 * @param num = 사용자로부터 입력받은 스코어
-		 * @return Array형태로 0번 인덱스에는 처음 탐색할 그룹, 1번 인덱스에는 그 다음 탐색할 그룹... 을 리턴
-		 * 사용자로부터 입력받은 점수를 토대로 그룹 탐색 순서를 정하는 메소드		
-		 */
+		//사용자로부터 입력받은 점수를 토대로 그룹 탐색 순서를 정하는 메소드		
 		private function DicideGroupOrder(num:int):Array
 		{
 			var isPlusOver:Boolean;
