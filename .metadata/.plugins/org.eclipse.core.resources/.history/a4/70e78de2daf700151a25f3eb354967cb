@@ -41,18 +41,18 @@ package
 			
 			for(var i:int = 0; i<info.length; ++i)
 			{	
-				trace("\tUser(id: " + info[i].id +
-					", name: " + info[i].name +
-					", score: " + info[i].score +
-					", win: " + info[i].win + 
-					", lose: " + info[i].lose +
+				trace("\tUser(id: " + info[i].Id +
+					", name: " + info[i].Name +
+					", score: " + info[i].Score +
+					", win: " + info[i].Win + 
+					", lose: " + info[i].Lose +
 					")");		
 				
-				textField.text += "\tUser(id: " + info[i].id +
-					", name: " + info[i].name +
-					", score: " + info[i].score +
-					", win: " + info[i].win + 
-					", lose: " + info[i].lose +
+				textField.text += "\tUser(id: " + info[i].Id +
+					", name: " + info[i].Name +
+					", score: " + info[i].Score +
+					", win: " + info[i].Win + 
+					", lose: " + info[i].Lose +
 					")\n";	
 			}	
 		}
@@ -107,8 +107,8 @@ package
 		//사용자 정의 정렬 메소드 (오름차순)
 		private function OrderByGap(infoA:PlayerInfo, infoB:PlayerInfo):int
 		{			
-			var tempA:int = Math.abs(infoA.score - inputScore);
-			var tempB:int = Math.abs(infoB.score - inputScore);					
+			var tempA:int = Math.abs(infoA.Score - inputScore);
+			var tempB:int = Math.abs(infoB.Score - inputScore);					
 			
 			if(tempA < tempB)
 				return -1;

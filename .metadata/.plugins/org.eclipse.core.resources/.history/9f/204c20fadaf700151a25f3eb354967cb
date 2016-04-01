@@ -88,11 +88,11 @@ package
 				//trace(temp[i]);
 			}			
 			
-			tempInfo.id = parseInt(temp[0]);
-			tempInfo.name = temp[1];
-			tempInfo.score = parseInt(temp[2]);
-			tempInfo.win = parseInt(temp[3]);
-			tempInfo.lose = parseInt(temp[4]);
+			tempInfo.Id = parseInt(temp[0]);
+			tempInfo.Name = temp[1];
+			tempInfo.Score = parseInt(temp[2]);
+			tempInfo.Win = parseInt(temp[3]);
+			tempInfo.Lose = parseInt(temp[4]);
 			
 			return tempInfo;
 		}
@@ -110,7 +110,7 @@ package
 				for(var j:int = 0; j<info.length; ++j)
 				{
 					//스코어 값을 토대로 그룹 매칭
-					if(SetGroupNum(info[j].score) == i)
+					if(SetGroupNum(info[j].Score) == i)
 					{					
 						tempVec.push(info[j]);
 					}					

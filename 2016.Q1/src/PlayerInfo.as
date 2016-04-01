@@ -2,63 +2,75 @@ package
 {
 	public class PlayerInfo 
 	{
-		private var id:int;									
-		private var name:String;
-		private var score:int;
-		private var win:int;
-		private var lose:int;
+		private var _id:int;									
+		private var _name:String;
+		private var _score:int;
+		private var _win:int;
+		private var _lose:int;
+		private var _group:int;
 		
 		
 		//getter setter 
-		public function get Id():int
+
+		public function get group():int
 		{
-			return id;
+			return _group;
+		}
+
+		public function set group(value:int):void
+		{
+			_group = value;
+		}
+
+		public function get id():int
+		{
+			return _id;
 		}
 		
-		public function set Id(setValue:int):void
+		public function set id(setValue:int):void
 		{
-			id = setValue;
+			_id = setValue;
 		}
 		
-		public function get Name():String
+		public function get name():String
 		{
-			return name;
+			return _name;
 		}
 		
-		public function set Name(setValue:String):void
+		public function set name(setValue:String):void
 		{
-			name = setValue;
+			_name = setValue;
 		}
 		
-		public function get Score():int
+		public function get score():int
 		{
-			return score;
+			return _score;
 		}
 		
-		public function set Score(setValue:int):void
+		public function set score(setValue:int):void
 		{
-			score = setValue;
+			_score = setValue;
 		}
 		
-		public function get Win():int
+		public function get win():int
 		{
-			return win;
+			return _win;
 		}
 		
-		public function set Win(setValue:int):void
+		public function set win(setValue:int):void
 		{
-			win = setValue;
+			_win = setValue;
 		}
 		
 		
-		public function get Lose():int
+		public function get lose():int
 		{
-			return lose;
+			return _lose;
 		}
 		
-		public function set Lose(setValue:int):void
+		public function set lose(setValue:int):void
 		{
-			lose = setValue;
+			_lose = setValue;
 		}		
 		
 

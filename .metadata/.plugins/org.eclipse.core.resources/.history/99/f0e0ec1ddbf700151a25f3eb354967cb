@@ -41,18 +41,18 @@ package
 			
 			for(var i:int = 0; i<info.length; ++i)
 			{	
-				trace("\tUser(id: " + info[i].id +
-					", name: " + info[i].name +
-					", score: " + info[i].score +
-					", win: " + info[i].win + 
-					", lose: " + info[i].lose +
+				trace("\tUser(id: " + info[i].Id +
+					", name: " + info[i].Name +
+					", score: " + info[i].Score +
+					", win: " + info[i].Win + 
+					", lose: " + info[i].Lose +
 					")");		
 				
-				textField.text += "\tUser(id: " + info[i].id +
-					", name: " + info[i].name +
-					", score: " + info[i].score +
-					", win: " + info[i].win + 
-					", lose: " + info[i].lose +
+				textField.text += "\tUser(id: " + info[i].Id +
+					", name: " + info[i].Name +
+					", score: " + info[i].Score +
+					", win: " + info[i].Win + 
+					", lose: " + info[i].Lose +
 					")\n";	
 			}	
 		}

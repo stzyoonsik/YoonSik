@@ -110,7 +110,7 @@ package
 				for(var j:int = 0; j<info.length; ++j)
 				{
 					//스코어 값을 토대로 그룹 매칭
-					if(SetGroupNum(info[j].score) == i)
+					if(SetGroupNum(info[j].Score) == i)
 					{					
 						tempVec.push(info[j]);
 					}					
