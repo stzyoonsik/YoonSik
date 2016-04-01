@@ -32,7 +32,6 @@ package
 			capture.Dic = dicInfo;
 			addChild(capture);
 			
-			
 		}
 	}	
 }
