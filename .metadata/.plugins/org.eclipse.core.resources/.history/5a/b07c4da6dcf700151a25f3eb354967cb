@@ -94,8 +94,6 @@ package
 			tempInfo.win = parseInt(temp[3]);
 			tempInfo.lose = parseInt(temp[4]);
 			
-			tempInfo.group = SetGroupNum(tempInfo.score);
-			
 			return tempInfo;
 		}
 		
@@ -123,14 +121,7 @@ package
 			return tempDic;
 		}
 		
-		/**
-		 * 
-		 * @param num : 데이터에서 가져온 점수를 파라미터로 받아옴
-		 * @return 파라미터로 받은 정수를 계산하여 해당하는 그룹 번호를 리턴함
-		 * score 백만 초과 -> 11리턴
-		 * score 0이하     -> 0리턴
-		 * 나머지                   -> 계산값 리턴
-		 */
+		
 		public function SetGroupNum(num:int):int
 		{
 			//Score를 10만으로 나눈 값을 그룹 번호로 함
@@ -146,6 +137,8 @@ package
 			
 			return ((num - 1) / 100000) + 1;
 		}	
+		
+		
 		
 		public function SaveToTxt():void
 		{
