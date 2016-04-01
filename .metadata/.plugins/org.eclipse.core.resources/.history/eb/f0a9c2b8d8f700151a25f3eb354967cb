@@ -21,7 +21,7 @@ package
 						
 			
 			//vector에 들어있는 데이터를 그룹화하여 Dictionary 타입으로 저장
-			var dicInfo:Dictionary;
+			var dicInfo:Dictionary = new Dictionary();
 			dicInfo = InputMgr.instance.SaveToDictionary(vecInfo);
 			
 			OutputMgr.instance.MAX_FINDABLE_PLAYER = MAX_FINDABLE_PLAYER;
