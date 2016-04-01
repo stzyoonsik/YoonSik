@@ -31,9 +31,17 @@ package
 		public var inputScore:int;
 		public var MAX_FINDABLE_PLAYER:int;
 		
-		//public var _playerInfo:Vector.<PlayerInfo>;
+		private var _playerInfo:Vector.<PlayerInfo>;
 		
-	
+		public function get playerInfo():Vector.<PlayerInfo>
+		{
+			return _playerInfo;
+		}
+		
+		public function set playerInfo(value:Vector.<PlayerInfo>):void
+		{
+			_playerInfo = value;
+		}
 		
 		
 		

@@ -14,8 +14,6 @@ package
 			if (!_isConstructing) throw new Error("Singleton, use OutputMgr.instance");
 		}
 		
-		
-
 		public static function get instance():OutputMgr {
 			if (_instance == null)  {
 				_isConstructing = true;
@@ -23,18 +21,14 @@ package
 				_isConstructing = false;
 			}
 			return _instance;
-		}		
+		}
+		
 		
 		
 		public var foundPlayerCount:int;
 		public var textField:TextField = new TextField();
 		public var inputScore:int;
 		public var MAX_FINDABLE_PLAYER:int;
-		
-		//public var _playerInfo:Vector.<PlayerInfo>;
-		
-	
-		
 		
 		
 		private function PrintResult(groupNum:int, info:Vector.<PlayerInfo>):void
@@ -78,8 +72,7 @@ package
 		{			
 			
 			var arrGroup:Array = new Array;
-			arrGroup = DicideGroupOrder(InputMgr.instance.SetGroupNum(inputScore));	
-			
+			arrGroup = DicideGroupOrder(InputMgr.instance.SetGroupNum(inputScore));		
 			//trace("그룹 탐색 순서 = " + arrGroup);	
 		
 			var isFoundAll:Boolean = false;

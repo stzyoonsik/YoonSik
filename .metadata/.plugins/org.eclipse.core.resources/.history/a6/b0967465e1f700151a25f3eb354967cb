@@ -13,7 +13,7 @@ package
 		private var myOutputBox:TextField = new TextField(); 		//출력하는 텍스트필드
 		private var myText:String = ""; 
 		
-		private var dic:Dictionary;// = new Dictionary();
+		private var dic:Dictionary = new Dictionary();
 		
 		
 		public function set Dic(setValue:Dictionary):void
