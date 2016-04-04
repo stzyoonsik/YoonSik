@@ -74,25 +74,14 @@ package
 			_close.y = point.y;
 		}
 		
-		/**
-		 * 
-		 * @param e
-		 * 모든 이벤트들을 관장하는 메소드
-		 */
 		private function onAddedToStage(e:Event):void
 		{
-			_titleBar.addEventListener(TouchEvent.TOUCH, onDragTitleBar);
+			_titleBar.addEventListener(TouchEvent.TOUCH, onTouchHandler);
 			_minimize.addEventListener(TouchEvent.TOUCH, onMinimize);
 			_revert.addEventListener(TouchEvent.TOUCH, onRevert);
 			_close.addEventListener(TouchEvent.TOUCH, onClose);
 		}
 		
-		/**
-		 * 
-		 * @param e
-		 * 터치 이벤트가 발생하면 콜백되는 메소드
-		 * 미니마이즈 버튼을 클릭하면 content의 높이를 0으로 한다
-		 */
 		private function onMinimize(e:TouchEvent):void
 		{
 			var touch:Touch = e.getTouch(_minimize, TouchPhase.ENDED);
@@ -103,12 +92,6 @@ package
 			}
 		}
 		
-		/**
-		 * 
-		 * @param e
-		 * 터치 이벤트가 발생하면 콜백되는 메소드
-		 * 리버트 버튼을 클릭하면 content의 높이를 256으로 한다
-		 */
 		private function onRevert(e:TouchEvent):void
 		{
 			var touch:Touch = e.getTouch(_revert, TouchPhase.ENDED);
@@ -119,41 +102,27 @@ package
 			}
 		}
 		
-		/**
-		 * 
-		 * @param e
-		 * 터치 이벤트가 발생하면 콜백되는 메소드
-		 * 터치 이벤트가 발생하면 모든 이벤트 리스너를 제거하고 부모로부터 삭제된다
-		 */
 		private function onClose(e:TouchEvent):void
 		{
 			var touch:Touch = e.getTouch(_close, TouchPhase.ENDED);
 			if(touch)
 			{
 				trace("종료");
-				
-				_titleBar.removeEventListener(TouchEvent.TOUCH, onDragTitleBar);
-				_minimize.removeEventListener(TouchEvent.TOUCH, onMinimize);
-				_revert.removeEventListener(TouchEvent.TOUCH, onRevert);
-				_close.removeEventListener(TouchEvent.TOUCH, onClose);
-				
-				removeEventListener(TouchEvent.TOUCH, onAddedToStage);
-				
 				removeFromParent();
 				
 			}
 		}
 		
-		/**
-		 * 
-		 * @param e
-		 * 터치 이벤트가 발생하면 콜백되는 메소드
-		 * 터치 이벤트가 발생하면 드래그 앤 드롭을 통해 오브젝트들을 이동시켜주는 메소드
-		 */
-		private function onDragTitleBar(e:TouchEvent):void
+		private function onTouchHandler(e:TouchEvent):void
 		{
 			var touch:Touch = e.getTouch(_titleBar);
-
+//			if(touch)
+//			{
+//				switch(touch.phase)
+//				{
+//					case TouchPhase.BEGAN : _titleBar.setv
+//				}
+//			}
 			
 			touch = e.getTouch(_titleBar, TouchPhase.MOVED);
 			if(touch)
@@ -162,6 +131,8 @@ package
 				var previousPos:Point = touch.getPreviousLocation(parent);
 				var delta:Point = currentPos.subtract(previousPos);
 				
+				//_titleBar.x += delta.x;
+				//_titleBar.y += delta.y;
 				
 				moveWindow(delta);
 				
