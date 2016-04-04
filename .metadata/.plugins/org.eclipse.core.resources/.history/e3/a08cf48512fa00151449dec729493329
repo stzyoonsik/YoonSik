@@ -46,11 +46,6 @@ package
 			
 		}
 		
-		/**
-		 * 
-		 * @param point 해당 좌표를 기준으로 오브젝트를 생성함
-		 * 입력받은 좌표를 기준으로 5개의 오브젝트의 생성 위치를 초기화하는 메소드
-		 */
 		public function initPosition(point:Point):void
 		{
 			_titleBar.x = point.x;
