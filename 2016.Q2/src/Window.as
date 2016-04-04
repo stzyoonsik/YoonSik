@@ -77,7 +77,38 @@ package
 		private function onAddedToStage(e:Event):void
 		{
 			_titleBar.addEventListener(TouchEvent.TOUCH, onTouchHandler);
-			
+			_minimize.addEventListener(TouchEvent.TOUCH, onMinimize);
+			_revert.addEventListener(TouchEvent.TOUCH, onRevert);
+			_close.addEventListener(TouchEvent.TOUCH, onClose);
+		}
+		
+		private function onMinimize(e:TouchEvent):void
+		{
+			var touch:Touch = e.getTouch(_minimize, TouchPhase.ENDED);
+			if(touch)
+			{
+				trace("최소화");
+				_contents.height = 0;
+			}
+		}
+		
+		private function onRevert(e:TouchEvent):void
+		{
+			var touch:Touch = e.getTouch(_revert, TouchPhase.ENDED);
+			if(touch)
+			{
+				trace("최대화");
+				_contents.height = 256;
+			}
+		}
+		
+		private function onClose(e:TouchEvent):void
+		{
+			var touch:Touch = e.getTouch(_close, TouchPhase.ENDED);
+			if(touch)
+			{
+				trace("종료");
+			}
 		}
 		
 		private function onTouchHandler(e:TouchEvent):void
@@ -107,6 +138,14 @@ package
 			}
 		}
 		
+		
+		
+		/**
+		 * 
+		 * @param point 
+		 * 현재 위치에서 point의 위치 까지 오브젝트들을 이동시키는 메소드 
+		 * 
+		 */
 		private function moveWindow(point:Point):void
 		{
 			_titleBar.x += point.x;
