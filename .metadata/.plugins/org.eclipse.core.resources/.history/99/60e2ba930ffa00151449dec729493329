@@ -1,0 +1,16 @@
+package
+{
+	import starling.display.Image;
+
+	public class Window
+	{
+		[Embed(source = "contents.png")]
+		private static const Contents:Class;
+		public function Window()
+		{
+			var contents:Image = new Image(Texture.fromEmbeddedAsset(Contents));
+			
+			addChild(contents);
+		}
+	}
+}

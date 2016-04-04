@@ -9,7 +9,7 @@ package
 		private var _starling:Starling;
 		public function Main()
 		{
-			_starling = new Starling(Window, stage);			
+			_starling = new Starling(Game, stage);			
 			_starling.start();
 		}
 	}

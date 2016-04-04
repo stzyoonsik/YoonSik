@@ -1,14 +1,14 @@
 package
 {
-	import starling.display.Image;
-	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.text.TextField;
+	import starling.display.Quad;
 	import starling.utils.Color;
 	
 	public class Game extends Sprite
 	{
-		
+		[Embed(source = "contents.png")]
+		private static const _contents:Class;
 		
 		public function Game()
 		{
@@ -20,7 +20,6 @@ package
 //			quad.x = 100;
 //			quad.y = 50;
 //			addChild(quad);
-			
 			
 			
 		}
