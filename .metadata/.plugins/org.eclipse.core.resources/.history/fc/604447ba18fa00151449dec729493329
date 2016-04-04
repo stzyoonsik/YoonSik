@@ -1,13 +1,13 @@
 package
 {
+	import flash.display.Bitmap;
+	import flash.events.Event;
 	import flash.geom.Point;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
-	import starling.events.Event;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
-	import starling.events.TouchPhase;
 	import starling.textures.Texture;
 
 	public class Window extends Sprite
@@ -76,55 +76,12 @@ package
 		
 		private function onAddedToStage(e:Event):void
 		{
-			_titleBar.addEventListener(TouchEvent.TOUCH, onTouchHandler);
 			
 		}
 		
 		private function onTouchHandler(e:TouchEvent):void
 		{
 			var touch:Touch = e.getTouch(_titleBar);
-//			if(touch)
-//			{
-//				switch(touch.phase)
-//				{
-//					case TouchPhase.BEGAN : _titleBar.setv
-//				}
-//			}
-			
-			touch = e.getTouch(_titleBar, TouchPhase.MOVED);
-			if(touch)
-			{
-				var currentPos:Point = touch.getLocation(parent);
-				var previousPos:Point = touch.getPreviousLocation(parent);
-				var delta:Point = currentPos.subtract(previousPos);
-				
-				//_titleBar.x += delta.x;
-				//_titleBar.y += delta.y;
-				
-				moveWindow(delta);
-				
-				
-			}
-		}
-		
-		private function moveWindow(point:Point):void
-		{
-			_titleBar.x += point.x;
-			_titleBar.y += point.y;
-			
-			_contents.x += point.x;
-			_contents.y += point.y;
-			
-			_minimize.x += point.x;
-			_minimize.y += point.y;
-			
-			_revert.x += point.x;
-			_revert.y += point.y;
-			
-			_close.x += point.x;
-			_close.y += point.y;
-			
-			
 		}
 	}
 }

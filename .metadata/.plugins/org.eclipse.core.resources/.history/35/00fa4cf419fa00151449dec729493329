@@ -98,10 +98,8 @@ package
 				var previousPos:Point = touch.getPreviousLocation(parent);
 				var delta:Point = currentPos.subtract(previousPos);
 				
-				//_titleBar.x += delta.x;
-				//_titleBar.y += delta.y;
-				
-				moveWindow(delta);
+				_titleBar.x += delta.x;
+				_titleBar.y += delta.y;
 				
 				
 			}
