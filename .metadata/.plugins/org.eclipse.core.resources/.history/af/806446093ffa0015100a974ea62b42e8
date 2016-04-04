@@ -176,7 +176,6 @@ package
 				_minimize.removeEventListener(TouchEvent.TOUCH, onMinimize);
 				_revert.removeEventListener(TouchEvent.TOUCH, onRevert);
 				_close.removeEventListener(TouchEvent.TOUCH, onClose);
-				_contents.removeEventListener(TouchEvent.TOUCH, onMakeChild);
 				
 				removeEventListener(TouchEvent.TOUCH, onAddedToStage);
 				

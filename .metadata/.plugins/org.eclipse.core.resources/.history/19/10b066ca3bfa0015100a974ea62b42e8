@@ -13,13 +13,16 @@ package
 	public class MainStage extends Sprite
 	{
 		private var _starling:Starling;
-		//private var _vecWindow:Vector.<Window> = new Vector.<Window>;
+		private var _vecWindow:Vector.<Window> = new Vector.<Window>;
 		
 		public function MainStage()
 		{
 			//리무브 해야함
 			
 			addEventListener(Event.ADDED_TO_STAGE, onInit);
+			
+			//var window:Window = new Window();
+			//addChild(window);
 		}
 		
 		private function onInit():void
@@ -30,14 +33,14 @@ package
 		private function onAddWindow(e:TouchEvent):void
 		{
 			var touch:Touch = e.getTouch(stage, TouchPhase.ENDED);
-			var window:Window = new Window();
+			
 			
 			if(touch)
 			{
 				if(touch.target == stage)
 				{
 					trace("윈도우 생성");
-					
+					var window:Window = new Window();
 					var currentPos:Point = touch.getLocation(parent);
 					
 					window.x = currentPos.x;
@@ -45,8 +48,18 @@ package
 					
 					
 					addChild(window);
-					
-				}			
+					_vecWindow.push(window);
+				}
+				
+				for(var i:int = 0; i<_vecWindow.length; ++i)
+				{
+					if(touch.target == _vecWindow[i])
+					{
+						trace("자식 생성");
+					}
+				}
+				
+				
 				
 			}
 		

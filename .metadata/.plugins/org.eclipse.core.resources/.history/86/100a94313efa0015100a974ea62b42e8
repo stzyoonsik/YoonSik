@@ -104,18 +104,13 @@ package
 			
 		}
 		
-		/**
-		 * 
-		 * @param e
-		 * 모든 자식 윈도우를 생성하는 콜백 메소드
-		 */
 		private function onMakeChild(e:TouchEvent):void
 		{
 			var touch:Touch = e.getTouch(_contents, TouchPhase.ENDED);
 			if(touch)
 			{
-				trace(this.name + "자식 생성");
-				var currentPos:Point = touch.getLocation(this);				
+				trace("자식 생성");
+				var currentPos:Point = touch.getLocation(parent);				
 				childWindow = new Window()
 				
 				childWindow.x = currentPos.x;
@@ -136,8 +131,7 @@ package
 			var touch:Touch = e.getTouch(_minimize, TouchPhase.ENDED);
 			if(touch)
 			{
-				trace(this.name + "최소화");
-				_contents.visible = false;
+				trace("최소화");
 				childWindow.visible = false;
 			}
 		}
@@ -153,8 +147,7 @@ package
 			var touch:Touch = e.getTouch(_revert, TouchPhase.ENDED);
 			if(touch)
 			{
-				trace(this.name + "최대화");
-				_contents.visible = true;
+				trace("최대화");
 				childWindow.visible = true;
 			}
 		}
@@ -176,7 +169,6 @@ package
 				_minimize.removeEventListener(TouchEvent.TOUCH, onMinimize);
 				_revert.removeEventListener(TouchEvent.TOUCH, onRevert);
 				_close.removeEventListener(TouchEvent.TOUCH, onClose);
-				_contents.removeEventListener(TouchEvent.TOUCH, onMakeChild);
 				
 				removeEventListener(TouchEvent.TOUCH, onAddedToStage);
 				

@@ -34,7 +34,7 @@ package
 		private var _close:Image = new Image(Texture.fromEmbeddedAsset(Close));
 		
 		private var _initPos:Point = new Point;
-		private var childWindow:Window;
+		
 		
 		public function get initPos():Point
 		{
@@ -100,29 +100,6 @@ package
 			_minimize.addEventListener(TouchEvent.TOUCH, onMinimize);
 			_revert.addEventListener(TouchEvent.TOUCH, onRevert);
 			_close.addEventListener(TouchEvent.TOUCH, onClose);
-			_contents.addEventListener(TouchEvent.TOUCH, onMakeChild);
-			
-		}
-		
-		/**
-		 * 
-		 * @param e
-		 * 모든 자식 윈도우를 생성하는 콜백 메소드
-		 */
-		private function onMakeChild(e:TouchEvent):void
-		{
-			var touch:Touch = e.getTouch(_contents, TouchPhase.ENDED);
-			if(touch)
-			{
-				trace(this.name + "자식 생성");
-				var currentPos:Point = touch.getLocation(this);				
-				childWindow = new Window()
-				
-				childWindow.x = currentPos.x;
-				childWindow.y = currentPos.y;
-				
-				addChild(childWindow);
-			}
 		}
 		
 		/**
@@ -136,9 +113,8 @@ package
 			var touch:Touch = e.getTouch(_minimize, TouchPhase.ENDED);
 			if(touch)
 			{
-				trace(this.name + "최소화");
-				_contents.visible = false;
-				childWindow.visible = false;
+				trace("최소화");
+				_contents.height = 0;
 			}
 		}
 		
@@ -153,9 +129,8 @@ package
 			var touch:Touch = e.getTouch(_revert, TouchPhase.ENDED);
 			if(touch)
 			{
-				trace(this.name + "최대화");
-				_contents.visible = true;
-				childWindow.visible = true;
+				trace("최대화");
+				_contents.height = 256;
 			}
 		}
 		
@@ -176,7 +151,6 @@ package
 				_minimize.removeEventListener(TouchEvent.TOUCH, onMinimize);
 				_revert.removeEventListener(TouchEvent.TOUCH, onRevert);
 				_close.removeEventListener(TouchEvent.TOUCH, onClose);
-				_contents.removeEventListener(TouchEvent.TOUCH, onMakeChild);
 				
 				removeEventListener(TouchEvent.TOUCH, onAddedToStage);
 				

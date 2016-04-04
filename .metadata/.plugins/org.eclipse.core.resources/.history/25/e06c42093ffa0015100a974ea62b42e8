@@ -20,6 +20,9 @@ package
 			//리무브 해야함
 			
 			addEventListener(Event.ADDED_TO_STAGE, onInit);
+			
+			//var window:Window = new Window();
+			//addChild(window);
 		}
 		
 		private function onInit():void
@@ -45,8 +48,29 @@ package
 					
 					
 					addChild(window);
-					
-				}			
+					//_vecWindow.push(window);
+				}
+//				
+//				for(var i:int = 0; i<_vecWindow.length; ++i)
+//				{
+//					if(touch.target == _vecWindow[i])
+//					{
+//						trace("자식 생성");
+//					}
+//				}
+				
+//				else
+//				{
+//					trace("자식 생성");
+//					var currentPos2:Point = touch.getLocation(parent);
+//					
+//					window.x = currentPos2.x;
+//					window.y = currentPos2.y;
+//					
+//					addChild(window);
+//				}
+				
+				
 				
 			}
 		
