@@ -1,0 +1,33 @@
+package
+{
+	import starling.core.Starling;
+	import starling.display.Sprite;
+	import starling.events.Touch;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
+	
+	public class MainStage extends Sprite
+	{
+		private var _starling:Starling;
+		
+		public function MainStage()
+		{
+			this.addEventListener(TouchEvent.TOUCH, onAddWindow);
+		}
+		
+		private function onAddWindow(e:TouchEvent):void
+		{
+			var touch:Touch = e.getTouch(this, TouchPhase.ENDED);
+			
+			if(touch)
+			{
+				var window:Window = new Window();
+				
+				addChild(window);
+				
+				trace("윈도우 생성");
+			}
+		
+		}
+	}
+}

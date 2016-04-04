@@ -1,0 +1,15 @@
+package
+{
+	import starling.core.Starling;
+	import starling.display.Sprite;
+	
+	public class MainStage extends Sprite
+	{
+		private var _starling:Starling;
+		
+		public function MainStage()
+		{
+			window:Window = new Window();
+		}
+	}
+}
