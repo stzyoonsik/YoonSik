@@ -30,11 +30,15 @@ package
 		[Embed(source = "close.png")]
 		private static const Close:Class;
 		
+		[Embed(source = "border.png")]
+		private static const Border:Class;
+		
 		private var _contents:Image = new Image(Texture.fromEmbeddedAsset(Contents));
 		private var _titleBar:Image = new Image(Texture.fromEmbeddedAsset(TitleBar));
 		private var _minimize:Image = new Image(Texture.fromEmbeddedAsset(Minimize));
 		private var _revert:Image = new Image(Texture.fromEmbeddedAsset(Revert));
 		private var _close:Image = new Image(Texture.fromEmbeddedAsset(Close));
+		private var _border:Image = new Image(Texture.fromEmbeddedAsset(Border));
 		
 		private var _textField:TextField = new TextField(70,30);
 		
@@ -47,9 +51,16 @@ package
 		public function Window()
 		{			
 			
-			addEventListener(TouchEvent.TOUCH, onAddedToStage);	
+			addEventListener(TouchEvent.TOUCH, onAddedEvents);	
 						
 			initPosition();
+			
+			_textField.autoSize = "left";
+			_textField.scaleX = 1.2;
+			_textField.scaleY = 1.2;
+			
+			_border.alpha = 0;
+			addChild(_border);
 			
 			_spr.addChild(_titleBar);
 			_spr.addChild(_textField);
@@ -60,16 +71,8 @@ package
 			addChild(_revert);
 			addChild(_close);
 			
-			_textField.autoSize = "left";
-			_textField.scaleX = 1.2;
-			_textField.scaleY = 1.2;
-			
-			
-			
-			
-			
-			
-			
+			//this.pivotX = this.width / 2;
+			//this.pivotY = this.height / 2;
 			
 		}	
 		
@@ -100,6 +103,9 @@ package
 			
 			_textField.x = this.x;
 			_textField.y = this.y;
+			
+			_border.x = this.x - 5;
+			_border.y = this.y - 5;
 		}
 		
 		/**
@@ -107,13 +113,15 @@ package
 		 * @param e
 		 * 모든 이벤트들을 관장하는 메소드
 		 */
-		private function onAddedToStage(e:Event):void
+		private function onAddedEvents(e:Event):void
 		{
 			_spr.addEventListener(TouchEvent.TOUCH, onDragTitleBar);
 			_minimize.addEventListener(TouchEvent.TOUCH, onMinimize);
 			_revert.addEventListener(TouchEvent.TOUCH, onRevert);
 			_close.addEventListener(TouchEvent.TOUCH, onClose);
 			_contents.addEventListener(TouchEvent.TOUCH, onMakeChild);
+			
+			this.addEventListener(TouchEvent.TOUCH, onChangeScale);
 			
 			_textField.text = this.name;
 			
@@ -203,20 +211,12 @@ package
 				_num--;
 				_vecChild.pop();
 				
-				
-				if(this.parent != null)
-				{
-					//this.parent.
-				}
-			
+											
 				this.removeEventListeners(TouchEvent.TOUCH);
 				
-				removeEventListener(TouchEvent.TOUCH, onAddedToStage);
+				removeEventListener(TouchEvent.TOUCH, onAddedEvents);
 				
 				removeFromParent();
-				
-				
-				
 				
 			}
 		}
@@ -229,10 +229,10 @@ package
 		 */
 		private function onDragTitleBar(e:TouchEvent):void
 		{
-			var touch:Touch = e.getTouch(_spr);			
-			
+			var touch:Touch;			
 			
 			touch = e.getTouch(_spr, TouchPhase.MOVED);
+			
 			if(touch)
 			{
 				var currentPos:Point = touch.getLocation(parent);
@@ -259,6 +259,30 @@ package
 //				this.removeFromParent();
 //				dis.addChild(this);
 //			}
+			
+			
+		}
+		
+		/**
+		 * 
+		 * @param e
+		 * 보더를 드래그앤 드롭 할 시 현재 윈도우의 크기를 바꿔주는 콜백 메소드
+		 */
+		private function onChangeScale(e:TouchEvent):void
+		{
+			var touch:Touch = e.getTouch(_border, TouchPhase.MOVED);
+			
+			if(touch)
+			{
+				var currentPos:Point = touch.getLocation(parent);
+				var previousPos:Point = touch.getPreviousLocation(parent);
+				var delta:Point = currentPos.subtract(previousPos);
+					
+				this.width += delta.x;
+				this.height += delta.y;
+				
+			}			
+		
 			
 			
 		}

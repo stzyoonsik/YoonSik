@@ -53,12 +53,14 @@ package
 				
 				}			
 				
+				//윈도우가 하나도 존재하지 않다면 다시 0부터
+				if(this.numChildren == 0)
+				{
+					_num = 0;
+				}
 			}
 			
-			if(this.numChildren == 0)
-			{
-				_num = 0;
-			}
+			
 		
 		}
 	}
