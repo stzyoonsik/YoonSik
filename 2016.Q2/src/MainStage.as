@@ -4,7 +4,6 @@ package
 	
 	import starling.core.Starling;
 	import starling.display.Sprite;
-	import starling.display.Stage;
 	import starling.events.Event;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
@@ -13,7 +12,9 @@ package
 	public class MainStage extends Sprite
 	{
 		private var _starling:Starling;
-		//private var _vecWindow:Vector.<Window> = new Vector.<Window>;
+		private var _window:Window;
+		private var _num:int = 0;
+		
 		
 		public function MainStage()
 		{
@@ -30,25 +31,29 @@ package
 		private function onAddWindow(e:TouchEvent):void
 		{
 			var touch:Touch = e.getTouch(stage, TouchPhase.ENDED);
-			var window:Window = new Window();
 			
+			
+						
 			if(touch)
 			{
 				if(touch.target == stage)
 				{
-					trace("윈도우 생성");
-					
 					var currentPos:Point = touch.getLocation(parent);
 					
-					window.x = currentPos.x;
-					window.y = currentPos.y;
+					_window = new Window();
+					_window.x = currentPos.x;
+					_window.y = currentPos.y;
+					_window.name = String(_num++);
 					
 					
-					addChild(window);
+					addChild(_window);
 					
+					trace(_window.name + "윈도우 생성");
+					
+				
 				}			
 				
-			}
+			}			
 		
 		}
 	}

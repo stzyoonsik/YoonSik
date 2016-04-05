@@ -8,7 +8,9 @@ package
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
+	import starling.text.TextField;
 	import starling.textures.Texture;
+	import starling.utils.Color;
 
 	public class Window extends Sprite
 	{
@@ -33,60 +35,63 @@ package
 		private var _revert:Image = new Image(Texture.fromEmbeddedAsset(Revert));
 		private var _close:Image = new Image(Texture.fromEmbeddedAsset(Close));
 		
-		private var _initPos:Point = new Point;
+		private var _textField:TextField = new TextField(100, 30);
+		
 		private var childWindow:Window;
-		
-		public function get initPos():Point
-		{
-			return _initPos;
-		}
-		
-		public function set initPos(value:Point):void
-		{
-			_initPos = value;
-		}
-		
+		private var vecChild:Vector.<Window> = new Vector.<Window>;
+		private var num:int = 0;
 		
 		public function Window()
-		{
-			//var bitmap:Bitmap = new Contents();
-			//var texture:Texture = Texture.fromBitmap(bitmap)
+		{			
 			
-			this.addEventListener(TouchEvent.TOUCH, onAddedToStage);
-			
-			//var pos:Point = _initPos;
-			initPosition(_initPos);
+			this.addEventListener(TouchEvent.TOUCH, onAddedToStage);	
+						
+			initPosition();
 			addChild(_titleBar);
 			addChild(_contents);
 			addChild(_minimize);
 			addChild(_revert);
 			addChild(_close);
 			
+			_textField.scaleX = 1.2;
+			_textField.scaleY = 1.2;
+			
+			addChild(_textField);
+			
+			
+			
 		}
 		
+		private function initTextField():void
+		{
+			_textField.text = this.name;
+			
+			
+		}
 	
 
 		/**
 		 * 
-		 * @param point 해당 좌표를 기준으로 오브젝트를 생성함
+		 * 
 		 * 입력받은 좌표를 기준으로 5개의 오브젝트의 생성 위치를 초기화하는 메소드
 		 */
-		public function initPosition(point:Point):void
+		private function initPosition():void
 		{
-			_titleBar.x = point.x;
-			_titleBar.y = point.y;
 			
-			_contents.x = point.x;
-			_contents.y = point.y + 32;
+			_titleBar.x = this.x;
+			_titleBar.y = this.y;
 			
-			_minimize.x = point.x + 418;
-			_minimize.y = point.y;
+			_contents.x = this.x;
+			_contents.y = this.y + 32;
 			
-			_revert.x = point.x + 450;
-			_revert.y = point.y;
+			_minimize.x = this.x + 418;
+			_minimize.y = this.y;
 			
-			_close.x = point.x + 480;
-			_close.y = point.y;
+			_revert.x = this.x + 450;
+			_revert.y = this.y;
+			
+			_close.x = this.x + 480;
+			_close.y = this.y;
 		}
 		
 		/**
@@ -102,6 +107,8 @@ package
 			_close.addEventListener(TouchEvent.TOUCH, onClose);
 			_contents.addEventListener(TouchEvent.TOUCH, onMakeChild);
 			
+			initTextField();
+			
 		}
 		
 		/**
@@ -113,15 +120,19 @@ package
 		{
 			var touch:Touch = e.getTouch(_contents, TouchPhase.ENDED);
 			if(touch)
-			{
-				trace(this.name + "자식 생성");
+			{				
+				
 				var currentPos:Point = touch.getLocation(this);				
 				childWindow = new Window()
 				
 				childWindow.x = currentPos.x;
 				childWindow.y = currentPos.y;
+				childWindow.name = this.name + "-" + String(num++); 
 				
 				addChild(childWindow);
+				vecChild.push(childWindow);
+				
+				trace(childWindow.name + "자식 생성");
 			}
 		}
 		
@@ -138,7 +149,16 @@ package
 			{
 				trace(this.name + "최소화");
 				_contents.visible = false;
-				childWindow.visible = false;
+				//if(childWindow != null)
+				//	childWindow.visible = false;
+				
+				if(vecChild.length != 0)
+				{
+					for(var i:int = 0; i<vecChild.length; ++i)
+					{
+						vecChild[i].visible = false;
+					}
+				}
 			}
 		}
 		
@@ -155,7 +175,15 @@ package
 			{
 				trace(this.name + "최대화");
 				_contents.visible = true;
-				childWindow.visible = true;
+				//if(childWindow != null)
+				//	childWindow.visible = true;
+				if(vecChild.length != 0)
+				{
+					for(var i:int = 0; i<vecChild.length; ++i)
+					{
+						vecChild[i].visible = true;
+					}
+				}
 			}
 		}
 		
@@ -170,18 +198,23 @@ package
 			var touch:Touch = e.getTouch(_close, TouchPhase.ENDED);
 			if(touch)
 			{
-				trace("종료");
+				trace(this.name + "종료");
 				
-				_titleBar.removeEventListener(TouchEvent.TOUCH, onDragTitleBar);
-				_minimize.removeEventListener(TouchEvent.TOUCH, onMinimize);
-				_revert.removeEventListener(TouchEvent.TOUCH, onRevert);
-				_close.removeEventListener(TouchEvent.TOUCH, onClose);
-				_contents.removeEventListener(TouchEvent.TOUCH, onMakeChild);
+//				_titleBar.removeEventListener(TouchEvent.TOUCH, onDragTitleBar);
+//				_minimize.removeEventListener(TouchEvent.TOUCH, onMinimize);
+//				_revert.removeEventListener(TouchEvent.TOUCH, onRevert);
+//				_close.removeEventListener(TouchEvent.TOUCH, onClose);
+//				_contents.removeEventListener(TouchEvent.TOUCH, onMakeChild);
+			
+				this.removeEventListeners(TouchEvent.TOUCH);
 				
 				removeEventListener(TouchEvent.TOUCH, onAddedToStage);
 				
 				removeFromParent();
 				
+				num--;
+				
+				vecChild.pop();
 			}
 		}
 		
