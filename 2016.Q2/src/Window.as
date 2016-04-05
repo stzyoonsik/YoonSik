@@ -1,8 +1,8 @@
 package
 {
-	
+	import ResourceLoader;
 	import flash.geom.Point;
-	import flash.geom.Rectangle;
+	
 	
 	import starling.core.Starling;
 	import starling.display.Image;
@@ -18,44 +18,18 @@ package
 
 	public class Window extends Sprite
 	{
-		[Embed(source = "../images/contents.png")]
-		private static const Contents:Class;
+		private var _contents:Image;
+		private var _titleBar:Image;
+		private var _minimize:Image;
+		private var _revert:Image;
+		private var _close:Image;
+		private var _border:Image;
 		
-		[Embed(source = "../images/titleBar.png")]
-		private static const TitleBar:Class;
+		private var _texture:Texture; 
+		private var _xml:XML; 
+		private var _atlas:TextureAtlas; 
 		
-		[Embed(source = "../images/minimize.png")]
-		private static const Minimize:Class;
-		
-		[Embed(source = "../images/revert.png")]
-		private static const Revert:Class;
-		
-		[Embed(source = "../images/close.png")]
-		private static const Close:Class;
-		
-		[Embed(source = "../images/border.png")]
-		private static const Border:Class;
-		
-		[Embed(source = "TextureAtlas.xml", mimeType="application/octet-stream")]
-		private static const AtlasXml:Class;
-		
-		[Embed(source = "../images/flight_animation.png")]
-		private static const AtlasTexture:Class;
-		
-		private var _contents:Image = new Image(Texture.fromEmbeddedAsset(Contents));
-		private var _titleBar:Image = new Image(Texture.fromEmbeddedAsset(TitleBar));
-		private var _minimize:Image = new Image(Texture.fromEmbeddedAsset(Minimize));
-		private var _revert:Image = new Image(Texture.fromEmbeddedAsset(Revert));
-		private var _close:Image = new Image(Texture.fromEmbeddedAsset(Close));
-		private var _border:Image = new Image(Texture.fromEmbeddedAsset(Border));
-		
-		private var _texture:Texture = Texture.fromEmbeddedAsset(AtlasTexture);
-		private var _xml:XML = XML(new AtlasXml());
-		private var _atlas:TextureAtlas = new TextureAtlas(_texture, _xml);
-		
-		private var _movie:MovieClip = new MovieClip(_atlas.getTextures("flight_"), 4);
-		
-		
+		private var _movie:MovieClip; 		
 			
 		private var _textField:TextField = new TextField(70,30);
 		
@@ -69,7 +43,8 @@ package
 		{			
 			
 			addEventListener(TouchEvent.TOUCH, onAddedEvents);	
-						
+			
+			loadResource();			
 			initPosition();
 			
 			_textField.autoSize = "left";
@@ -91,13 +66,33 @@ package
 			//this.pivotX = this.width / 2;
 			//this.pivotY = this.height / 2;
 			
-			_movie.play();			
+				
 			Starling.juggler.add(_movie);
 			addChild(_movie);
 			
+			
+			
 		}	
 		
-		
+		/**
+		 * 
+		 * 리소스 로드 메소드 
+		 */
+		private function loadResource():void
+		{
+			_contents = new Image(Texture.fromEmbeddedAsset(ResourceLoader.Contents));
+			_titleBar = new Image(Texture.fromEmbeddedAsset(ResourceLoader.TitleBar));
+			_minimize = new Image(Texture.fromEmbeddedAsset(ResourceLoader.Minimize));
+			_revert   = new Image(Texture.fromEmbeddedAsset(ResourceLoader.Revert));
+			_close    = new Image(Texture.fromEmbeddedAsset(ResourceLoader.Close));
+			_border   = new Image(Texture.fromEmbeddedAsset(ResourceLoader.Border));
+			
+			_texture  = Texture.fromEmbeddedAsset(ResourceLoader.AtlasTexture);
+			_xml      = XML(new ResourceLoader.AtlasXml);
+			_atlas    = new TextureAtlas(_texture, _xml);
+			
+			_movie    = new MovieClip(_atlas.getTextures("flight_"), 4);
+		}
 
 		/**
 		 * 
@@ -172,6 +167,11 @@ package
 				_vecChild.push(_childWindow);
 				
 				trace(_childWindow.name + "자식 생성");
+				
+//				if(this.parent.getChildIndex(this) == 0)
+//				{
+//					trace("aaaa");
+//				}
 			}
 		}
 		
@@ -188,6 +188,7 @@ package
 			{
 				trace(this.name + "최소화");
 				_contents.visible = false;
+				_movie.visible = false;
 				
 				//_childWindow.visible = false;
 				for(var i:int = 0; i<_vecChild.length; ++i)
@@ -211,7 +212,7 @@ package
 			{
 				trace(this.name + "최대화");
 				_contents.visible = true;
-				
+				_movie.visible = true;
 				for(var i:int = 0; i<_vecChild.length; ++i)
 				{
 					_vecChild[i].visible = true;
@@ -276,7 +277,7 @@ package
 			}
 			
 			
-			//그냥 클릭했을 경우, 현재 선택된 윈도우가 가장 가까이 보이게 함
+			//그냥 클릭했을 경우, 현재 선택된 윈도우가 가장 위에 보이게 함
 			touch = e.getTouch(_spr, TouchPhase.ENDED);
 			if(touch)
 			{
