@@ -1,8 +1,8 @@
 package
 {
-	import ResourceLoader;
 	import flash.geom.Point;
 	
+	import ResourceLoader;
 	
 	import starling.core.Starling;
 	import starling.display.Image;
@@ -33,7 +33,7 @@ package
 			
 		private var _textField:TextField = new TextField(70,30);
 		
-		private var _spr:Sprite = new Sprite();
+		private var _spr:Sprite = new Sprite();		
 		
 		private var _childWindow:Window;
 		private var _vecChild:Vector.<Window> = new Vector.<Window>;
@@ -52,21 +52,28 @@ package
 			_textField.scaleX = 1.2;
 			_textField.scaleY = 1.2;
 			
-			_border.alpha = 0;
+			//_border.alpha = 0;
 			addChild(_border);
+			
+			
+			
+			
+			
+			
 			
 			_spr.addChild(_titleBar);
 			_spr.addChild(_textField);
 			
 			addChild(_spr);
+			
 			addChild(_contents);
 			addChild(_minimize);
 			addChild(_revert);
 			addChild(_close);
 			
-				
 			Starling.juggler.add(_movie);
 			addChild(_movie);
+			
 		}	
 		
 		/**
@@ -103,14 +110,23 @@ package
 			_contents.x = this.x;
 			_contents.y = this.y + 32;
 			
-			_minimize.x = this.x + 418;
-			_minimize.y = this.y;
+//			_minimize.x = this.x + 418;
+//			_minimize.y = this.y;
+//			
+//			_revert.x = this.x + 450;
+//			_revert.y = this.y;
+//			
+//			_close.x = this.x + 480;
+//			_close.y = this.y;
 			
-			_revert.x = this.x + 450;
-			_revert.y = this.y;
+			_minimize.x = _titleBar.width - 94;
+			_minimize.y = _titleBar.y;
 			
-			_close.x = this.x + 480;
-			_close.y = this.y;
+			_revert.x = _titleBar.width - 64;
+			_revert.y = _titleBar.y;
+			
+			_close.x = _titleBar.width - 32;
+			_close.y = _titleBar.y;
 			
 			_textField.x = this.x;
 			_textField.y = this.y;
@@ -121,6 +137,14 @@ package
 			_movie.x = this.x;
 			_movie.y = this.y + 100;
 			
+			
+			//_con.pivotX = _contents.x;
+			//_con.pivotY = _contents.y;
+			
+			//_contents.pivotX = _contents.x;
+			//_contents.pivotY = _contents.y;
+			
+			//_con.alignPivot("center", "center");
 			
 		}
 		
@@ -167,10 +191,6 @@ package
 				
 				trace(_childWindow.name + "자식 생성");
 				
-//				if(this.parent.getChildIndex(this) == 0)
-//				{
-//					trace("aaaa");
-//				}
 			}
 		}
 		
@@ -242,13 +262,13 @@ package
 				
 				this.removeEventListener(TouchEvent.TOUCH, onAddedEvents);
 				
-				this.removeFromParent();
+				this.removeFromParent();			
 				
 			}
 		}
 		
 		/**
-		 * 
+		 * 7
 		 * @param e 터치이벤트
 		 * 터치 이벤트가 발생하면 콜백되는 메소드
 		 * 터치 이벤트가 발생하면 드래그 앤 드롭을 통해 오브젝트들을 이동시켜주는 메소드
@@ -303,12 +323,23 @@ package
 				var previousPos:Point = touch.getPreviousLocation(parent);
 				var delta:Point = currentPos.subtract(previousPos);
 					
-				this.width += delta.x;
-				this.height += delta.y;
 				
-			}			
-					
-			
+				_border.width += delta.x;
+				_titleBar.width += delta.x;	
+				_contents.width += delta.x;
+				_minimize.x = _titleBar.width - 94;
+				_revert.x = _titleBar.width - 64;
+				_close.x = _titleBar.width - 32;				
+				
+				_border.height += delta.y;
+				
+				_movie.height += delta.y;
+				_contents.height += delta.y;
+				
+				//보더가 타이틀바보다 작아지는것에 대한 예외처리
+				if(_border.height < _titleBar.height + 10)
+					_border.height = _titleBar.height + 10;
+			}	
 		}
 		
 		/**
@@ -319,7 +350,8 @@ package
 		{
 			_movie.x += 1;
 			
-			if(_movie.x > _contents.x + 400)
+			//벽에 닿으면 처음 위치로
+			if(_movie.x > _contents.width - _movie.width)
 				_movie.x = _contents.x;
 		}
 		
