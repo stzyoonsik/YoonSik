@@ -1,7 +1,9 @@
 <TextureAtlas imagePath="atlas.png">
-    <SubTexture name="flight_00" x="0"   y="0" width="76" height="62" />
-    <SubTexture name="flight_01" x="76"  y="0" width="76" height="62" />
-    <SubTexture name="flight_02" x="152" y="0" width="76" height="62" />
-    <SubTexture name="flight_03" x="228" y="0" width="76" height="62" />
-    <!-- ... -->
+    <SubTexture name="walk-right_01" x="0"   y="0" width="102" height="148" />
+    <SubTexture name="walk-right_02" x="102"  y="0" width="102" height="148" />
+    <SubTexture name="walk-right_03" x="204" y="0" width="102" height="148" />
+    <SubTexture name="walk-right_04" x="306" y="0" width="102" height="148" />
+    <SubTexture name="walk-right_05" x="408" y="0" width="102" height="148" />
+    <SubTexture name="walk-right_06" x="510" y="0" width="102" height="148" />
+   
 </TextureAtlas>

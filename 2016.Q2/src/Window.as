@@ -39,6 +39,7 @@ package
 		private var _vecChild:Vector.<Window> = new Vector.<Window>;
 		private var _num:int = 0;
 		
+		
 		public function Window()
 		{			
 			
@@ -63,15 +64,9 @@ package
 			addChild(_revert);
 			addChild(_close);
 			
-			//this.pivotX = this.width / 2;
-			//this.pivotY = this.height / 2;
-			
 				
 			Starling.juggler.add(_movie);
 			addChild(_movie);
-			
-			
-			
 		}	
 		
 		/**
@@ -91,7 +86,7 @@ package
 			_xml      = XML(new ResourceLoader.AtlasXml);
 			_atlas    = new TextureAtlas(_texture, _xml);
 			
-			_movie    = new MovieClip(_atlas.getTextures("flight_"), 4);
+			_movie    = new MovieClip(_atlas.getTextures("walk-right_"), 6);
 		}
 
 		/**
@@ -125,6 +120,8 @@ package
 			
 			_movie.x = this.x;
 			_movie.y = this.y + 100;
+			
+			
 		}
 		
 		/**
@@ -134,15 +131,17 @@ package
 		 */
 		private function onAddedEvents(e:Event):void
 		{
-			_spr.addEventListener(TouchEvent.TOUCH, onDragTitleBar);
+			_spr.addEventListener(TouchEvent.TOUCH, onTouchTitleBar);
 			_minimize.addEventListener(TouchEvent.TOUCH, onMinimize);
 			_revert.addEventListener(TouchEvent.TOUCH, onRevert);
 			_close.addEventListener(TouchEvent.TOUCH, onClose);
 			_contents.addEventListener(TouchEvent.TOUCH, onMakeChild);
 			
-			this.addEventListener(TouchEvent.TOUCH, onChangeScale);
+			_border.addEventListener(TouchEvent.TOUCH, onChangeScale);
 			
-			_textField.text = this.name;
+			_movie.addEventListener(TouchEvent.TOUCH, onHoverCharacter);
+			_textField.text = this.name;			
+				
 			
 		}
 		
@@ -189,6 +188,7 @@ package
 				trace(this.name + "최소화");
 				_contents.visible = false;
 				_movie.visible = false;
+				_border.visible = false;
 				
 				//_childWindow.visible = false;
 				for(var i:int = 0; i<_vecChild.length; ++i)
@@ -213,6 +213,7 @@ package
 				trace(this.name + "최대화");
 				_contents.visible = true;
 				_movie.visible = true;
+				_border.visible = true;
 				for(var i:int = 0; i<_vecChild.length; ++i)
 				{
 					_vecChild[i].visible = true;
@@ -252,7 +253,7 @@ package
 		 * 터치 이벤트가 발생하면 콜백되는 메소드
 		 * 터치 이벤트가 발생하면 드래그 앤 드롭을 통해 오브젝트들을 이동시켜주는 메소드
 		 */
-		private function onDragTitleBar(e:TouchEvent):void
+		private function onTouchTitleBar(e:TouchEvent):void
 		{
 			var touch:Touch;			
 			
@@ -308,6 +309,18 @@ package
 			}			
 					
 			
+		}
+		
+		/**
+		 * 
+		 * 케릭터에 마우스가 Hover되면 케릭터를 오른쪽으로 이동시키는 콜백 메소드
+		 */
+		private function onHoverCharacter():void
+		{
+			_movie.x += 1;
+			
+			if(_movie.x > _contents.x + 400)
+				_movie.x = _contents.x;
 		}
 		
 	}

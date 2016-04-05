@@ -24,14 +24,9 @@ package
 		[Embed(source = "TextureAtlas.xml", mimeType="application/octet-stream")]
 		public static const AtlasXml:Class;
 		
-		[Embed(source = "../images/flight_animation.png")]
+		[Embed(source = "../images/walk-right.png")]
 		public static const AtlasTexture:Class;
-		
-		
-		
-		
-		public function ResourceLoader()
-		{
-		}
+				
+	
 	}
 }
