@@ -53,7 +53,12 @@ package
 				
 				}			
 				
-			}			
+			}
+			
+			if(this.numChildren == 0)
+			{
+				_num = 0;
+			}
 		
 		}
 	}

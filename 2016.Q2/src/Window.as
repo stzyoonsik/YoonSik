@@ -2,6 +2,8 @@ package
 {
 	import flash.geom.Point;
 	
+	import starling.display.DisplayObject;
+	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -10,7 +12,6 @@ package
 	import starling.events.TouchPhase;
 	import starling.text.TextField;
 	import starling.textures.Texture;
-	import starling.utils.Color;
 
 	public class Window extends Sprite
 	{
@@ -35,11 +36,11 @@ package
 		private var _revert:Image = new Image(Texture.fromEmbeddedAsset(Revert));
 		private var _close:Image = new Image(Texture.fromEmbeddedAsset(Close));
 		
-		private var _textField:TextField = new TextField(100, 30);
+		private var _textField:TextField = new TextField(70,30);
 		
-		private var childWindow:Window;
-		private var vecChild:Vector.<Window> = new Vector.<Window>;
-		private var num:int = 0;
+		private var _childWindow:Window;
+		private var _vecChild:Vector.<Window> = new Vector.<Window>;
+		private var _num:int = 0;
 		
 		public function Window()
 		{			
@@ -53,6 +54,7 @@ package
 			addChild(_revert);
 			addChild(_close);
 			
+			_textField.autoSize = "left";
 			_textField.scaleX = 1.2;
 			_textField.scaleY = 1.2;
 			
@@ -60,15 +62,9 @@ package
 			
 			
 			
-		}
+		}	
 		
-		private function initTextField():void
-		{
-			_textField.text = this.name;
-			
-			
-		}
-	
+		
 
 		/**
 		 * 
@@ -107,7 +103,7 @@ package
 			_close.addEventListener(TouchEvent.TOUCH, onClose);
 			_contents.addEventListener(TouchEvent.TOUCH, onMakeChild);
 			
-			initTextField();
+			_textField.text = this.name;
 			
 		}
 		
@@ -120,19 +116,18 @@ package
 		{
 			var touch:Touch = e.getTouch(_contents, TouchPhase.ENDED);
 			if(touch)
-			{				
-				
+			{								
 				var currentPos:Point = touch.getLocation(this);				
-				childWindow = new Window()
+				_childWindow = new Window()
 				
-				childWindow.x = currentPos.x;
-				childWindow.y = currentPos.y;
-				childWindow.name = this.name + "-" + String(num++); 
+				_childWindow.x = currentPos.x;
+				_childWindow.y = currentPos.y;
+				_childWindow.name = this.name + "-" + String(_num++); 
 				
-				addChild(childWindow);
-				vecChild.push(childWindow);
+				addChild(_childWindow);
+				_vecChild.push(_childWindow);
 				
-				trace(childWindow.name + "자식 생성");
+				trace(_childWindow.name + "자식 생성");
 			}
 		}
 		
@@ -149,16 +144,13 @@ package
 			{
 				trace(this.name + "최소화");
 				_contents.visible = false;
-				//if(childWindow != null)
-				//	childWindow.visible = false;
 				
-				if(vecChild.length != 0)
+				//_childWindow.visible = false;
+				for(var i:int = 0; i<_vecChild.length; ++i)
 				{
-					for(var i:int = 0; i<vecChild.length; ++i)
-					{
-						vecChild[i].visible = false;
-					}
+					_vecChild[i].visible = false;
 				}
+				
 			}
 		}
 		
@@ -175,15 +167,12 @@ package
 			{
 				trace(this.name + "최대화");
 				_contents.visible = true;
-				//if(childWindow != null)
-				//	childWindow.visible = true;
-				if(vecChild.length != 0)
+				
+				for(var i:int = 0; i<_vecChild.length; ++i)
 				{
-					for(var i:int = 0; i<vecChild.length; ++i)
-					{
-						vecChild[i].visible = true;
-					}
+					_vecChild[i].visible = true;
 				}
+				
 			}
 		}
 		
@@ -199,12 +188,14 @@ package
 			if(touch)
 			{
 				trace(this.name + "종료");
+				_num--;
+				_vecChild.pop();
 				
-//				_titleBar.removeEventListener(TouchEvent.TOUCH, onDragTitleBar);
-//				_minimize.removeEventListener(TouchEvent.TOUCH, onMinimize);
-//				_revert.removeEventListener(TouchEvent.TOUCH, onRevert);
-//				_close.removeEventListener(TouchEvent.TOUCH, onClose);
-//				_contents.removeEventListener(TouchEvent.TOUCH, onMakeChild);
+				
+				if(this.parent != null)
+				{
+					//this.parent.
+				}
 			
 				this.removeEventListeners(TouchEvent.TOUCH);
 				
@@ -212,9 +203,9 @@ package
 				
 				removeFromParent();
 				
-				num--;
 				
-				vecChild.pop();
+				
+				
 			}
 		}
 		
@@ -237,7 +228,26 @@ package
 				
 				this.x += delta.x;
 				this.y += delta.y;
+				
+				//드래그 하는 동안 알파값 조정
+				this.alpha = 0.5;
 			}
+			
+			else
+			{
+				this.alpha = 1;
+			}
+			
+			
+			touch = e.getTouch(_titleBar, TouchPhase.ENDED);
+			if(touch)
+			{
+				var dis:DisplayObjectContainer = this.parent;
+				this.removeFromParent();
+				dis.addChild(this);
+			}
+			
+			
 		}
 		
 	}
