@@ -38,6 +38,8 @@ package
 		
 		private var _textField:TextField = new TextField(70,30);
 		
+		private var _spr:Sprite = new Sprite();
+		
 		private var _childWindow:Window;
 		private var _vecChild:Vector.<Window> = new Vector.<Window>;
 		private var _num:int = 0;
@@ -45,10 +47,14 @@ package
 		public function Window()
 		{			
 			
-			this.addEventListener(TouchEvent.TOUCH, onAddedToStage);	
+			addEventListener(TouchEvent.TOUCH, onAddedToStage);	
 						
 			initPosition();
-			addChild(_titleBar);
+			
+			_spr.addChild(_titleBar);
+			_spr.addChild(_textField);
+			
+			addChild(_spr);
 			addChild(_contents);
 			addChild(_minimize);
 			addChild(_revert);
@@ -58,7 +64,10 @@ package
 			_textField.scaleX = 1.2;
 			_textField.scaleY = 1.2;
 			
-			addChild(_textField);
+			
+			
+			
+			
 			
 			
 			
@@ -88,6 +97,9 @@ package
 			
 			_close.x = this.x + 480;
 			_close.y = this.y;
+			
+			_textField.x = this.x;
+			_textField.y = this.y;
 		}
 		
 		/**
@@ -97,7 +109,7 @@ package
 		 */
 		private function onAddedToStage(e:Event):void
 		{
-			_titleBar.addEventListener(TouchEvent.TOUCH, onDragTitleBar);
+			_spr.addEventListener(TouchEvent.TOUCH, onDragTitleBar);
 			_minimize.addEventListener(TouchEvent.TOUCH, onMinimize);
 			_revert.addEventListener(TouchEvent.TOUCH, onRevert);
 			_close.addEventListener(TouchEvent.TOUCH, onClose);
@@ -217,9 +229,10 @@ package
 		 */
 		private function onDragTitleBar(e:TouchEvent):void
 		{
-			var touch:Touch = e.getTouch(_titleBar);
+			var touch:Touch = e.getTouch(_spr);			
 			
-			touch = e.getTouch(_titleBar, TouchPhase.MOVED);
+			
+			touch = e.getTouch(_spr, TouchPhase.MOVED);
 			if(touch)
 			{
 				var currentPos:Point = touch.getLocation(parent);
@@ -239,13 +252,13 @@ package
 			}
 			
 			
-			touch = e.getTouch(_titleBar, TouchPhase.ENDED);
-			if(touch)
-			{
-				var dis:DisplayObjectContainer = this.parent;
-				this.removeFromParent();
-				dis.addChild(this);
-			}
+//			touch = e.getTouch(_spr, TouchPhase.ENDED);
+//			if(touch)
+//			{
+//				var dis:DisplayObjectContainer = this.parent;
+//				this.removeFromParent();
+//				dis.addChild(this);
+//			}
 			
 			
 		}
