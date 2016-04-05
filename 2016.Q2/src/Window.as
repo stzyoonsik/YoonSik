@@ -1,9 +1,12 @@
 package
 {
+	
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
+	import starling.core.Starling;
 	import starling.display.Image;
+	import starling.display.MovieClip;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.events.Touch;
@@ -11,26 +14,33 @@ package
 	import starling.events.TouchPhase;
 	import starling.text.TextField;
 	import starling.textures.Texture;
+	import starling.textures.TextureAtlas;
 
 	public class Window extends Sprite
 	{
-		[Embed(source = "contents.png")]
+		[Embed(source = "../images/contents.png")]
 		private static const Contents:Class;
 		
-		[Embed(source = "titleBar.png")]
+		[Embed(source = "../images/titleBar.png")]
 		private static const TitleBar:Class;
 		
-		[Embed(source = "minimize.png")]
+		[Embed(source = "../images/minimize.png")]
 		private static const Minimize:Class;
 		
-		[Embed(source = "revert.png")]
+		[Embed(source = "../images/revert.png")]
 		private static const Revert:Class;
 		
-		[Embed(source = "close.png")]
+		[Embed(source = "../images/close.png")]
 		private static const Close:Class;
 		
-		[Embed(source = "border.png")]
+		[Embed(source = "../images/border.png")]
 		private static const Border:Class;
+		
+		[Embed(source = "TextureAtlas.xml", mimeType="application/octet-stream")]
+		private static const AtlasXml:Class;
+		
+		[Embed(source = "../images/flight_animation.png")]
+		private static const AtlasTexture:Class;
 		
 		private var _contents:Image = new Image(Texture.fromEmbeddedAsset(Contents));
 		private var _titleBar:Image = new Image(Texture.fromEmbeddedAsset(TitleBar));
@@ -39,8 +49,14 @@ package
 		private var _close:Image = new Image(Texture.fromEmbeddedAsset(Close));
 		private var _border:Image = new Image(Texture.fromEmbeddedAsset(Border));
 		
-		//private var _rect:Rectangle = new Rectangle();
+		private var _texture:Texture = Texture.fromEmbeddedAsset(AtlasTexture);
+		private var _xml:XML = XML(new AtlasXml());
+		private var _atlas:TextureAtlas = new TextureAtlas(_texture, _xml);
 		
+		private var _movie:MovieClip = new MovieClip(_atlas.getTextures("flight_"), 4);
+		
+		
+			
 		private var _textField:TextField = new TextField(70,30);
 		
 		private var _spr:Sprite = new Sprite();
@@ -75,6 +91,10 @@ package
 			//this.pivotX = this.width / 2;
 			//this.pivotY = this.height / 2;
 			
+			_movie.play();			
+			Starling.juggler.add(_movie);
+			addChild(_movie);
+			
 		}	
 		
 		
@@ -108,7 +128,8 @@ package
 			_border.x = this.x - 5;
 			_border.y = this.y - 5;
 			
-			//_rect.setTo(this.x, this.y, this.width - this.x, this.height - this.y);
+			_movie.x = this.x;
+			_movie.y = this.y + 100;
 		}
 		
 		/**
@@ -217,9 +238,9 @@ package
 											
 				this.removeEventListeners(TouchEvent.TOUCH);
 				
-				removeEventListener(TouchEvent.TOUCH, onAddedEvents);
+				this.removeEventListener(TouchEvent.TOUCH, onAddedEvents);
 				
-				removeFromParent();
+				this.removeFromParent();
 				
 			}
 		}
@@ -284,10 +305,7 @@ package
 				this.height += delta.y;
 				
 			}			
-		
-			//var touch:Touch = e.getTouch(_rect, TouchPhase.MOVED);
-			
-			
+					
 			
 		}
 		

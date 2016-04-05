@@ -31,9 +31,7 @@ package
 		private function onAddWindow(e:TouchEvent):void
 		{
 			var touch:Touch = e.getTouch(stage, TouchPhase.ENDED);
-			
-			
-						
+				
 			if(touch)
 			{
 				if(touch.target == stage)
@@ -45,12 +43,9 @@ package
 					_window.y = currentPos.y;
 					_window.name = String(_num++);
 					
-					
 					addChild(_window);
 					
 					trace(_window.name + "윈도우 생성");
-					
-				
 				}			
 				
 				//윈도우가 하나도 존재하지 않다면 다시 0부터
@@ -59,9 +54,6 @@ package
 					_num = 0;
 				}
 			}
-			
-			
-		
 		}
 	}
 }

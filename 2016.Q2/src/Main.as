@@ -8,9 +8,9 @@ package
 	{		
 		public function Main()
 		{
-			var _starling:Starling;
-			_starling = new Starling(MainStage, stage);	
-			_starling.start();
+			var starling:Starling;
+			starling = new Starling(MainStage, stage);	
+			starling.start();
 			
 		}
 	}
