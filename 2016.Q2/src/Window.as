@@ -1,9 +1,8 @@
 package
 {
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	
-	import starling.display.DisplayObject;
-	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -39,6 +38,8 @@ package
 		private var _revert:Image = new Image(Texture.fromEmbeddedAsset(Revert));
 		private var _close:Image = new Image(Texture.fromEmbeddedAsset(Close));
 		private var _border:Image = new Image(Texture.fromEmbeddedAsset(Border));
+		
+		//private var _rect:Rectangle = new Rectangle();
 		
 		private var _textField:TextField = new TextField(70,30);
 		
@@ -106,11 +107,13 @@ package
 			
 			_border.x = this.x - 5;
 			_border.y = this.y - 5;
+			
+			//_rect.setTo(this.x, this.y, this.width - this.x, this.height - this.y);
 		}
 		
 		/**
 		 * 
-		 * @param e
+		 * @param e 이벤트
 		 * 모든 이벤트들을 관장하는 메소드
 		 */
 		private function onAddedEvents(e:Event):void
@@ -129,7 +132,7 @@ package
 		
 		/**
 		 * 
-		 * @param e
+		 * @param e 터치이벤트
 		 * 모든 자식 윈도우를 생성하는 콜백 메소드
 		 */
 		private function onMakeChild(e:TouchEvent):void
@@ -153,9 +156,9 @@ package
 		
 		/**
 		 * 
-		 * @param e
+		 * @param e 터치이벤트
 		 * 터치 이벤트가 발생하면 콜백되는 메소드
-		 * 미니마이즈 버튼을 클릭하면 content의 높이를 0으로 한다
+		 * 미니마이즈 버튼을 클릭하면 content의 visible를 false로 한다
 		 */
 		private function onMinimize(e:TouchEvent):void
 		{
@@ -176,9 +179,9 @@ package
 		
 		/**
 		 * 
-		 * @param e
+		 * @param e 터치이벤트
 		 * 터치 이벤트가 발생하면 콜백되는 메소드
-		 * 리버트 버튼을 클릭하면 content의 높이를 256으로 한다
+		 * 리버트 버튼을 클릭하면 content의 visible을 true로 한다
 		 */
 		private function onRevert(e:TouchEvent):void
 		{
@@ -198,7 +201,7 @@ package
 		
 		/**
 		 * 
-		 * @param e
+		 * @param e 터치이벤트
 		 * 터치 이벤트가 발생하면 콜백되는 메소드
 		 * 터치 이벤트가 발생하면 모든 이벤트 리스너를 제거하고 부모로부터 삭제된다
 		 */
@@ -223,7 +226,7 @@ package
 		
 		/**
 		 * 
-		 * @param e
+		 * @param e 터치이벤트
 		 * 터치 이벤트가 발생하면 콜백되는 메소드
 		 * 터치 이벤트가 발생하면 드래그 앤 드롭을 통해 오브젝트들을 이동시켜주는 메소드
 		 */
@@ -252,20 +255,19 @@ package
 			}
 			
 			
-//			touch = e.getTouch(_spr, TouchPhase.ENDED);
-//			if(touch)
-//			{
-//				var dis:DisplayObjectContainer = this.parent;
-//				this.removeFromParent();
-//				dis.addChild(this);
-//			}
+			//그냥 클릭했을 경우, 현재 선택된 윈도우가 가장 가까이 보이게 함
+			touch = e.getTouch(_spr, TouchPhase.ENDED);
+			if(touch)
+			{
+				this.parent.setChildIndex(this, this.parent.numChildren);
+			}
 			
 			
 		}
 		
 		/**
 		 * 
-		 * @param e
+		 * @param e 터치이벤트
 		 * 보더를 드래그앤 드롭 할 시 현재 윈도우의 크기를 바꿔주는 콜백 메소드
 		 */
 		private function onChangeScale(e:TouchEvent):void
@@ -283,6 +285,8 @@ package
 				
 			}			
 		
+			//var touch:Touch = e.getTouch(_rect, TouchPhase.MOVED);
+			
 			
 			
 		}
