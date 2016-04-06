@@ -52,14 +52,8 @@ package
 			_textField.scaleX = 1.2;
 			_textField.scaleY = 1.2;
 			
-			//_border.alpha = 0;
+			_border.alpha = 0;
 			addChild(_border);
-			
-			
-			
-			
-			
-			
 			
 			_spr.addChild(_titleBar);
 			_spr.addChild(_textField);
@@ -108,18 +102,9 @@ package
 			_titleBar.y = this.y;
 			
 			_contents.x = this.x;
-			_contents.y = this.y + 32;
+			_contents.y = this.y + 32;			
 			
-//			_minimize.x = this.x + 418;
-//			_minimize.y = this.y;
-//			
-//			_revert.x = this.x + 450;
-//			_revert.y = this.y;
-//			
-//			_close.x = this.x + 480;
-//			_close.y = this.y;
-			
-			_minimize.x = _titleBar.width - 94;
+			_minimize.x = _titleBar.width - 96;
 			_minimize.y = _titleBar.y;
 			
 			_revert.x = _titleBar.width - 64;
@@ -137,14 +122,6 @@ package
 			_movie.x = this.x;
 			_movie.y = this.y + 100;
 			
-			
-			//_con.pivotX = _contents.x;
-			//_con.pivotY = _contents.y;
-			
-			//_contents.pivotX = _contents.x;
-			//_contents.pivotY = _contents.y;
-			
-			//_con.alignPivot("center", "center");
 			
 		}
 		
@@ -255,15 +232,25 @@ package
 			{
 				trace(this.name + "종료");
 				_num--;
-				_vecChild.pop();
 				
+				trace("_vecChild.length = " + _vecChild.length);
+				
+				for(var i:int = 0; i<_vecChild.length; ++i)
+				{
+					_vecChild[i].removeEventListeners(TouchEvent.TOUCH);					
+					_vecChild[i].removeEventListener(TouchEvent.TOUCH, onAddedEvents);
+					_vecChild[i].removeFromParent();
+					_vecChild[i].removeChildren();
+					_vecChild[i].dispose();
+				}
+				
+				_vecChild.pop();
 											
 				this.removeEventListeners(TouchEvent.TOUCH);
-				
 				this.removeEventListener(TouchEvent.TOUCH, onAddedEvents);
-				
-				this.removeFromParent();			
-				
+				this.removeFromParent();	
+				this.removeChildren();
+				this.dispose();
 			}
 		}
 		
@@ -327,18 +314,20 @@ package
 				_border.width += delta.x;
 				_titleBar.width += delta.x;	
 				_contents.width += delta.x;
-				_minimize.x = _titleBar.width - 94;
+				_minimize.x = _titleBar.width - 96;
 				_revert.x = _titleBar.width - 64;
 				_close.x = _titleBar.width - 32;				
 				
-				_border.height += delta.y;
-				
-				_movie.height += delta.y;
+				_border.height += delta.y;				
+				//_movie.height += delta.y;
 				_contents.height += delta.y;
 				
 				//보더가 타이틀바보다 작아지는것에 대한 예외처리
 				if(_border.height < _titleBar.height + 10)
 					_border.height = _titleBar.height + 10;
+				
+				//if(_movie.height < 50)
+				//	_movie.height = 50;
 			}	
 		}
 		
