@@ -1,6 +1,7 @@
 package
 {
 	import flash.geom.Point;
+	import flash.system.System;
 	
 	import ResourceLoader;
 	
@@ -67,6 +68,8 @@ package
 			
 			Starling.juggler.add(_movie);
 			addChild(_movie);
+			
+			trace(System.totalMemory / 1024);
 			
 		}	
 		
@@ -235,22 +238,7 @@ package
 				
 				trace("_vecChild.length = " + _vecChild.length);
 				
-				for(var i:int = 0; i<_vecChild.length; ++i)
-				{
-					_vecChild[i].removeEventListeners(TouchEvent.TOUCH);					
-					_vecChild[i].removeEventListener(TouchEvent.TOUCH, onAddedEvents);
-					_vecChild[i].removeFromParent();
-					_vecChild[i].removeChildren();
-					_vecChild[i].dispose();
-				}
-				
-				_vecChild.pop();
-											
-				this.removeEventListeners(TouchEvent.TOUCH);
-				this.removeEventListener(TouchEvent.TOUCH, onAddedEvents);
-				this.removeFromParent();	
-				this.removeChildren();
-				this.dispose();
+				release();
 			}
 		}
 		
@@ -344,5 +332,30 @@ package
 				_movie.x = _contents.x;
 		}
 		
+		/**
+		 * 
+		 * 재귀적으로 메모리를 release하는 메소드
+		 */
+		private function release():void
+		{
+			for(var i:int = 0; i<_vecChild.length; ++i)
+			{
+				_vecChild[i].removeEventListeners(TouchEvent.TOUCH);					
+				_vecChild[i].removeEventListener(TouchEvent.TOUCH, onAddedEvents);
+				_vecChild[i].removeFromParent();
+				_vecChild[i].removeChildren();
+				_vecChild[i].dispose();
+				_vecChild[i].release();
+				
+			}
+			trace(System.totalMemory / 1024);
+			//_vecChild.pop();
+			
+			this.removeEventListeners(TouchEvent.TOUCH);
+			this.removeEventListener(TouchEvent.TOUCH, onAddedEvents);
+			this.removeFromParent();	
+			this.removeChildren();
+			this.dispose();			
+		}
 	}
 }
