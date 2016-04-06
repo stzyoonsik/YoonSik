@@ -345,11 +345,12 @@ package
 				_vecChild[i].removeFromParent();
 				_vecChild[i].removeChildren();
 				_vecChild[i].dispose();
+				_vecChild[i].parent.dispose();
 				_vecChild[i].release();
 				
 			}
-			trace(System.totalMemory / 1024);
-			//_vecChild.pop();
+			trace(System.totalMemory / 1024);			
+			System.gc();
 			
 			this.removeEventListeners(TouchEvent.TOUCH);
 			this.removeEventListener(TouchEvent.TOUCH, onAddedEvents);

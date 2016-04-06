@@ -43,6 +43,7 @@ package
 					_window.y = currentPos.y;
 					_window.name = String(_num++);
 					
+					
 					addChild(_window);
 					
 					trace(_window.name + "윈도우 생성");

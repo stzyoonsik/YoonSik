@@ -10,6 +10,7 @@ package
 		{
 			var starling:Starling;
 			starling = new Starling(MainStage, stage);	
+			starling.showStats = true;
 			starling.start();
 			
 		}

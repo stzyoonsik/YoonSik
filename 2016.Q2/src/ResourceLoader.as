@@ -1,5 +1,11 @@
 package
 {
+	//import flash.display.Bitmap;
+	//import flash.display.Loader;
+	//import flash.net.URLRequest;
+	
+	//import starling.textures.Texture;
+
 	public class ResourceLoader
 	{
 		
@@ -27,6 +33,18 @@ package
 		[Embed(source = "../images/walk-right.png")]
 		public static const AtlasTexture:Class;
 				
-	
+		
+		
+//		public static var titleBar:Texture;
+//		
+//		private var titleBarLoader:Loader = new Loader();
+//		private var titleBarURL:URLRequest = new URLRequest("../images/titleBar.png");
+//		private var titleBarBitmap:Bitmap = new Bitmap();
+//		
+//		public function ResourceLoader()
+//		{
+//			titleBarLoader.load(titleBarURL);
+//			titleBar = Texture.fromBitmap(titleBarBitmap);				
+//		}
 	}
 }
