@@ -91,6 +91,8 @@ package
 			_atlas    = new TextureAtlas(_texture, _xml);
 			
 			_movie    = new MovieClip(_atlas.getTextures("walk-right_"), 6);
+			
+			
 		}
 
 		/**
@@ -144,6 +146,8 @@ package
 			_border.addEventListener(TouchEvent.TOUCH, onChangeScale);
 			
 			_movie.addEventListener(TouchEvent.TOUCH, onHoverCharacter);
+			
+			//텍스트를 이벤트가 발생할때마다 갱신하기 때문에 효율적이지 못함. 수정 필요
 			_textField.text = this.name;			
 				
 			
@@ -345,7 +349,6 @@ package
 				_vecChild[i].removeFromParent();
 				_vecChild[i].removeChildren();
 				_vecChild[i].dispose();
-				_vecChild[i].parent.dispose();
 				_vecChild[i].release();
 				
 			}
